@@ -23,4 +23,4 @@ Each Batman State has its own properties and they can not be executed at the sam
 
 Playthrough of the game is available on Playthrough folder of repo.
 
-The game is uplaoded it to google drive. Download it from the link in Build directory of repository.
+The game is uplaoded to google drive. Download it from the link in Build directory of repository.
