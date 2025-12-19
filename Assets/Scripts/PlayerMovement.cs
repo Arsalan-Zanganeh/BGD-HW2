@@ -13,6 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private float ySpeed;
     private float originalStepOffset;
+    private enum BatmanState
+    {
+        Normal,
+        Stealth,
+        Alert
+    }
+
+    private BatmanState currentState = BatmanState.Normal;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude) / 2;
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && currentState != BatmanState.Stealth)
         {
             inputMagnitude *= 2;
         }
@@ -41,19 +49,46 @@ public class PlayerMovement : MonoBehaviour
 
         ySpeed += Physics.gravity.y * Time.deltaTime;
 
-        if (characterController.isGrounded)
-        {
-            characterController.stepOffset = originalStepOffset;
-            ySpeed = -0.5f;
+        // if (characterController.isGrounded)
+        // {
+        //     characterController.stepOffset = originalStepOffset;
+        //     ySpeed = -0.5f;
+        // 
+        //     if (Input.GetButtonDown("Jump"))
+        //     {
+        //         ySpeed = jumpSpeed;
+        //     }
+        // }
+        // else
+        // {
+        //     characterController.stepOffset = 0;
+        // }
 
-            if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (currentState == BatmanState.Stealth)
             {
-                ySpeed = jumpSpeed;
+                currentState = BatmanState.Normal;
+            }
+            else
+            {
+                currentState = BatmanState.Stealth;
             }
         }
-        else
+        else if (Input.GetKeyDown(KeyCode.N))
         {
-            characterController.stepOffset = 0;
+            currentState = BatmanState.Normal;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentState == BatmanState.Alert)
+            {
+                currentState = BatmanState.Normal;
+            }
+            else
+            {
+                currentState = BatmanState.Alert;
+            }
         }
 
         Vector3 velocity = movementDirection * speed;
