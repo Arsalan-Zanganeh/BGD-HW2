@@ -6,6 +6,7 @@ public class BatSignal : MonoBehaviour
 {
     // 1. Get the Renderer component
     public Renderer batSignal;
+    public Vector3 rotateAmount;
 
     void Update()
     {
@@ -14,14 +15,19 @@ public class BatSignal : MonoBehaviour
         {
             ToggleRenderer();
         }
+        
+        if (batSignal.enabled)
+        {
+            transform.Rotate(rotateAmount * Time.deltaTime);
+        }
     }
 
     void ToggleRenderer()
     {
-        // 2. Check if it exists to avoid errors
+        // 1. Check if it exists to avoid errors
         if (batSignal != null)
         {
-            // 3. Toggle the enabled state
+            // 2. Toggle the enabled state
             batSignal.enabled = !batSignal.enabled;
         }
     }
