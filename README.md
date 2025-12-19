@@ -22,3 +22,5 @@ In Alert mode Batman can stays idle, walk and run. Alarm sound is played in a lo
 Each Batman State has its own properties and they can not be executed at the same time as they are implemented by enums.
 
 Playthrough of the game is available on Playthrough folder of repo.
+
+The game is uplaoded it to google drive. Download it from the link in Build directory of repository.
